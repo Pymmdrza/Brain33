@@ -5,13 +5,16 @@ import codecs, random, hashlib, ecdsa, sys, time
 from bit import Key
 from bit.format import bytes_to_wif
 import requests_random_user_agent
+from rich.console import Console
 
-filename = "Words.txt"
+cl = Console()
+
 
 Color = b'Y2xhc3MgQ29sb3IoKToKICAgIFJlZCA9ICdcMzNbMzFtJwogICAgR3JlZW4gPSAnXDMzWzMybScKICAgIFllbGxvdyA9ICdcMzNbMzNtJwogICAgQmx1ZSA9ICdcMzNbMzRtJwogICAgTWFnZW50YSA9ICdcMzNbMzVtJwogICAgQ3lhbiA9ICdcMzNbMzZtJwogICAgV2hpdGUgPSAnXDMzWzM3bScKICAgIEdyZXkgPSAnXDMzWzJtJwogICAgUmVzZXQgPSAnXDAzM1swbScKCgpSZWQgPSBDb2xvci5SZWQKR3JlZW4gPSBDb2xvci5HcmVlbgpZZWxsb3cgPSBDb2xvci5ZZWxsb3cKQ3lhbiA9IENvbG9yLkN5YW4KTWFnZW50YSA9IENvbG9yLk1hZ2VudGEKV2hpdGUgPSBDb2xvci5XaGl0ZQpSZXNldCA9IENvbG9yLlJlc2V0'
 txs = b'ZGVmIEdldFRyYW5zYWN0aW9uKHN0cnIpOgogICAgbGlua191cmwgPSBmImh0dHBzOi8vYnRjMS50cmV6b3IuaW8vYWRkcmVzcy97c3Rycn0iCiAgICB0cnk6CiAgICAgICAgUyA9IEhUTUxTZXNzaW9uKCkKICAgICAgICBSZXEgPSBTLmdldChsaW5rX3VybCkKICAgICAgICB4cGF0aCA9ICIvaHRtbC9ib2R5L21haW4vZGl2L2RpdlsyXS9kaXZbMV0vdGFibGUvdGJvZHkvdHJbNF0vdGRbMl0iCiAgICAgICAgTWV0YWRhdGEgPSBSZXEuaHRtbC54cGF0aCh4cGF0aCkKICAgICAgICByZXR1cm4gTWV0YWRhdGFbMF0udGV4dAogICAgZXhjZXB0OgogICAgICAgIHJldHVybiAiLTEi'
 
 exec(base64.b64decode(Color).decode())
+
 
 
 def PrivateKeyFromPassphrase(passphrase):
@@ -29,7 +32,9 @@ def AddrFromPrivateKeyBytes(PrivateKey):
 
 
 exec(base64.b64decode(txs).decode())
-
+cl.clear()
+print(f"{Red}[+]{Reset}{Yellow} Please Enter Word File Name with Type Format:{Reset} ")
+filename = str(input("HERE >>> "))
 
 count = 0
 found = 0
@@ -50,5 +55,4 @@ with open(filename, "r") as bf:
                                               f"{'=' * 22} MMDRZA.COM {'=' * 22}\n")
         else:
 
-            print(
-                f"[{Yellow}{count}{Reset} {Red}/{Reset} {Green}Found:{found}{Reset}] {CoAddr}{Red}:{Reset}{txs_co} {Cyan}#{Reset} {UnAddr}{Red}:{Reset}{txs_un} {Red}={Reset}{Magenta} {passphrase}{Reset}")
+            print(f"[{Yellow}{count}{Reset} {Red}/{Reset} {Green}Found:{found}{Reset}] {CoAddr}{Red}:{Reset}{txs_co} {Red}#{Reset} {UnAddr}{Red}:{Reset}{txs_un} {Red}={Reset}{Magenta} {passphrase}{Reset}")
