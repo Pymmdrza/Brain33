@@ -12,7 +12,18 @@ download and more detail's about Brain33 V3.0.1 : [Download & Detail's](https://
 ---
 in this script no need to install any package from console or terminal just download and use `Brain33_V3.exe` from [here](https://github.com/Pymmdrza/Brain33/releases/tag/Brain33_V3.0.1 'Brain33 V3 DOWNLOAD NOW')
 
+---
+
+If you are using Linux and you cannot use the installation files published in the [release](https://github.com/Pymmdrza/Brain33/releases/tag/Brain33_V3.0.1), to use version 3, you must first download this file [`Brain33_V3.py`](https://github.com/Pymmdrza/Brain33/blob/mainx/Brain33_V3.py) individually and after downloading it in your terminal or console, use the following commands to install the required packages. need Also, friends who have Windows operating system can use this file, but the instructions for installing the packages are different, follow the instructions below. (It is recommended to use the easy installation files without the need to install the package)
+
+
+
 ![](https://raw.githubusercontent.com/Pymmdrza/Brain33/mainx/media/brain33__screen-02.png)  
+
+- Brain33 V3.0.1 `.EXE` [`DOWNLOAD`](https://github.com/Pymmdrza/Brain33/raw/mainx/Brain33_V3.0.1.exe) 
+- Brain33 V3.0.1 `.RAR` [`DOWNLOAD`](https://github.com/Pymmdrza/Brain33/raw/mainx/Brain33_V3.0.1.rar) 
+- Brain33 V3.0.1 `.ZIP` [`DOWNLOAD`](https://github.com/Pymmdrza/Brain33/raw/mainx/Brain33_V3.0.1.zip) 
+
 ---
 
 Crack and Brute Force Attacking for Convert All Word's English and All Passlist Convert to HEX (SHA-256) Private Key
