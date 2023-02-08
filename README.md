@@ -1,6 +1,19 @@
 ![](https://raw.githubusercontent.com/Pymmdrza/Brain33/mainx/media/Brain33_tagCoveredtrans.png 'Brain convert word to hex private key')
 
 # Brain33
+---
+
+### Brain33 V3.0.1
+
+![](https://raw.githubusercontent.com/Pymmdrza/Brain33/mainx/media/brain33_v3_s.gif)
+
+download and more detail's about Brain33 V3.0.1 : [Download & Detail's](https://github.com/Pymmdrza/Brain33/releases/tag/Brain33_V3.0.1)
+
+---
+in this script no need to install any package from console or terminal just download and use `Brain33_V3.exe` from [here](https://github.com/Pymmdrza/Brain33/releases/tag/Brain33_V3.0.1 'Brain33 V3 DOWNLOAD NOW')
+
+![](https://raw.githubusercontent.com/Pymmdrza/Brain33/mainx/media/brain33__screen-02.png)  
+---
 
 Crack and Brute Force Attacking for Convert All Word's English and All Passlist Convert to HEX (SHA-256) Private Key
 
