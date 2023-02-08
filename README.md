@@ -16,6 +16,22 @@ in this script no need to install any package from console or terminal just down
 
 If you are using Linux and you cannot use the installation files published in the [release](https://github.com/Pymmdrza/Brain33/releases/tag/Brain33_V3.0.1), to use version 3, you must first download this file [`Brain33_V3.py`](https://github.com/Pymmdrza/Brain33/blob/mainx/Brain33_V3.py) individually and after downloading it in your terminal or console, use the following commands to install the required packages. need Also, friends who have Windows operating system can use this file, but the instructions for installing the packages are different, follow the instructions below. (It is recommended to use the easy installation files without the need to install the package)
 
+```
+# Windows
+pip install rich
+pip install bit
+pip install ecdsa
+pip install requests-html
+pip install requests-random-user-agent
+
+# Linux
+pip3 install rich
+pip3 install bit
+pip3 install ecdsa
+pip3 install requests-html
+pip3 install requests-random-user-agent
+
+```
 
 
 ![](https://raw.githubusercontent.com/Pymmdrza/Brain33/mainx/media/brain33__screen-02.png)  
