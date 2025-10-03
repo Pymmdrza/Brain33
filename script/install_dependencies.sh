@@ -17,9 +17,7 @@ NC='\033[0m' # No Color
 # Required packages
 PACKAGES=(
     "rich"
-    "bit"
-    "ecdsa"
-    "requests-html"
+    "libcrypto"
     "requests-random-user-agent"
 )
 
