@@ -1,1 +1,1 @@
-- Shell Script For Download Words : [More Details](https://github.com/Pymmdrza/Brain33/blob/mainx/script/download_words.md)
+- Shell Script For Download Words : [More Details](/download_words.md 'Details Downloader Alphabet Words Script')
