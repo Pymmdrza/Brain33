@@ -10,3 +10,4 @@ cd Brain33
 chmod +x script/*.sh
 script/install_dependencies.sh
 script/download_words.sh
+python3 Brain33_V5.py Words.txt
