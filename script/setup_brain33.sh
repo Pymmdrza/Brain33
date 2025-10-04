@@ -129,11 +129,11 @@ echo -e "Project location: ${GREEN}$PROJECT_ROOT${NC}"
 echo
 echo -e "${CYAN}To run the project:${NC}"
 echo -e "  cd $REPO_NAME"
-echo -e "  python3 brain33_V3.py"
+echo -e "  python3 brain33_V5.py"
 echo
 
 # Return to original directory
 cd "$CURRENT_DIR"
-
+cd "$REPO_NAME"
 # run 
-python3 brain33_V3.py
+python3 brain33_V5.py
