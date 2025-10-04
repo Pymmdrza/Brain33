@@ -2,6 +2,7 @@ import sys
 import time
 import hashlib
 import requests
+from pathlib import Path
 from rich.console import Console
 from libcrypto import PrivateKey
 from dataclasses import dataclass
@@ -225,12 +226,20 @@ def main():
     console.clear()
     console.print(BANNER)
 
-    console.print("[green]Enter wordlist file path (Example: [bold white]words.txt[/bold white]):[/green]")
-    filename = input(" [INPUT] File Path : ").strip()
+    # if file name not in argv
+    argv = sys.argv
+    if len(argv) > 1:
+        filename = argv[1]
+    else:
+        console.print("[green]Enter wordlist file path (Example: [bold white]words.txt[/bold white]):[/green]")
+        filename = input(" [INPUT] File Path : ").strip()
 
-    if not filename:
-        console.print("[red]No file specified.[/red]")
+    # if no filename exit
+    # check path is file
+    if not Path(filename).is_file():
+        console.print(f"[red]File '{filename}' does not exist or is not a file.[/red]")
         sys.exit(1)
+
 
     scanner = WalletScanner(filename)
     scanner.run()
