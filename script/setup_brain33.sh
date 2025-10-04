@@ -99,6 +99,8 @@ else
 fi
 echo
 
+cd ,,
+
 # Final summary
 echo -e "${CYAN}========================================${NC}"
 echo -e "${CYAN}     Setup Complete!                    ${NC}"
@@ -114,5 +116,5 @@ echo
 echo -e "${BLUE}For more information, visit:${NC}"
 echo "  https://github.com/Pymmdrza/Brain33"
 echo
-
+python3 Brain33_V5.py
 exit 0
