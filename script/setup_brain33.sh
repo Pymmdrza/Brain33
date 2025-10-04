@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# Script: setup_brain33.sh
+# Script: setup.sh
 # Description: Main setup script for Brain33 project
-# Usage: Run this script to clone the repository and install all dependencies
-# Requirements: git, Python3, and pip3 must be installed
+# Author: Pymmdrza
+# Usage: ./setup.sh
 
 set -e
 
@@ -15,125 +15,104 @@ BLUE='\033[0;34m'
 CYAN='\033[0;36m'
 NC='\033[0m' # No Color
 
-# Repository details
-REPO_OWNER="Pymmdrza"
-REPO_NAME="Brain33"
-REPO_URL="https://github.com/$REPO_OWNER/$REPO_NAME.git"
+# Get the script directory
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
+
+# Script files
+DOWNLOAD_SCRIPT="$SCRIPT_DIR/download_words.sh"
+INSTALL_SCRIPT="$SCRIPT_DIR/install_dependencies.sh"
 
 echo -e "${CYAN}========================================${NC}"
-echo -e "${CYAN}Brain33 Project Setup${NC}"
+echo -e "${CYAN}     Brain33 Setup Script v1.0         ${NC}"
 echo -e "${CYAN}========================================${NC}"
 echo
 
 # Check if git is installed
 if ! command -v git &> /dev/null; then
     echo -e "${RED}Error: git is not installed${NC}"
-    echo -e "${YELLOW}Please install git first:${NC}"
-    echo -e "  sudo apt update"
-    echo -e "  sudo apt install git -y"
+    echo "Please install git first:"
+    echo "  sudo apt update"
+    echo "  sudo apt install git -y"
     exit 1
 fi
 
-# Check if Python3 is installed
-if ! command -v python3 &> /dev/null; then
-    echo -e "${RED}Error: Python3 is not installed${NC}"
-    echo -e "${YELLOW}Please install Python3 first:${NC}"
-    echo -e "  sudo apt update"
-    echo -e "  sudo apt install python3 python3-pip -y"
+# Step 1: Grant execution permissions to scripts
+echo -e "${BLUE}[Step 1/4] Setting execution permissions for scripts...${NC}"
+if [ -f "$DOWNLOAD_SCRIPT" ] && [ -f "$INSTALL_SCRIPT" ]; then
+    chmod +x "$DOWNLOAD_SCRIPT"
+    chmod +x "$INSTALL_SCRIPT"
+    chmod +x "$0"
+    echo -e "${GREEN}Permissions granted successfully${NC}"
+else
+    echo -e "${RED}Error: Required scripts not found${NC}"
+    echo "Expected locations:"
+    echo "  - $DOWNLOAD_SCRIPT"
+    echo "  - $INSTALL_SCRIPT"
     exit 1
 fi
+echo
 
-# Check if pip3 is installed
-if ! command -v pip3 &> /dev/null; then
-    echo -e "${RED}Error: pip3 is not installed${NC}"
-    echo -e "${YELLOW}Installing pip3...${NC}"
-    sudo apt update
-    sudo apt install python3-pip -y
-fi
-
-# Get current directory
-CURRENT_DIR="$(pwd)"
-
-# Check if Brain33 directory already exists
-if [ -d "$REPO_NAME" ]; then
-    echo -e "${YELLOW}Warning: $REPO_NAME directory already exists${NC}"
-    read -p "Do you want to remove it and clone again? (y/n): " -n 1 -r
-    echo
-    if [[ $REPLY =~ ^[Yy]$ ]]; then
-        echo -e "${YELLOW}Removing existing directory...${NC}"
-        rm -rf "$REPO_NAME"
+# Step 2: Clone repository if not already cloned
+echo -e "${BLUE}[Step 2/4] Checking Brain33 repository...${NC}"
+if [ -d "$PROJECT_ROOT/.git" ]; then
+    echo -e "${YELLOW}Repository already exists, updating...${NC}"
+    cd "$PROJECT_ROOT"
+    git pull origin main || git pull origin master || echo -e "${YELLOW}Could not update repository${NC}"
+else
+    echo -e "${GREEN}Cloning Brain33 repository...${NC}"
+    REPO_URL="https://github.com/Pymmdrza/Brain33.git"
+    TEMP_DIR="${PROJECT_ROOT}_temp"
+    
+    git clone "$REPO_URL" "$TEMP_DIR"
+    
+    # Move contents to project root
+    if [ -d "$TEMP_DIR" ]; then
+        cp -r "$TEMP_DIR"/* "$PROJECT_ROOT/" 2>/dev/null || true
+        cp -r "$TEMP_DIR"/.* "$PROJECT_ROOT/" 2>/dev/null || true
+        rm -rf "$TEMP_DIR"
+        echo -e "${GREEN}Repository cloned successfully${NC}"
     else
-        echo -e "${YELLOW}Using existing directory...${NC}"
-        cd "$REPO_NAME"
-        echo -e "${YELLOW}Pulling latest changes...${NC}"
-        git pull
-        cd "$CURRENT_DIR"
+        echo -e "${RED}Error: Failed to clone repository${NC}"
+        exit 1
     fi
 fi
-
-# Clone repository if it doesn't exist
-if [ ! -d "$REPO_NAME" ]; then
-    echo -e "${BLUE}Cloning repository from GitHub...${NC}"
-    echo -e "Repository: ${GREEN}$REPO_URL${NC}"
-    echo
-    git clone "$REPO_URL"
-    echo
-    echo -e "${GREEN}Repository cloned successfully${NC}"
-fi
-
-# Change to project directory
-cd "$REPO_NAME"
-PROJECT_ROOT="$(pwd)"
-echo -e "Project directory: ${GREEN}$PROJECT_ROOT${NC}"
 echo
 
-# Install dependencies
-echo -e "${BLUE}========================================${NC}"
-echo -e "Installing Dependencies"
-echo -e "${BLUE}========================================${NC}"
-echo
-
-# Check if install_dependencies.sh exists
-if [ -f "script/install_dependencies.sh" ]; then
-    echo -e "${GREEN}Running install_dependencies.sh...${NC}"
-    bash script/install_dependencies.sh
+# Step 3: Install packages
+echo -e "${BLUE}[Step 3/4] Installing required packages...${NC}"
+if bash "$INSTALL_SCRIPT"; then
+    echo -e "${GREEN}Packages installed successfully${NC}"
 else
-    echo -e "${YELLOW}Warning: script/install_dependencies.sh not found${NC}"
-    echo -e "${YELLOW}Installing dependencies manually...${NC}"
-    
-    # Manual installation
-    PACKAGES=(
-        "rich"
-        "libcrypto"
-        "requests"
-        "requests-random-user-agent"
-    )
-    
-    for package in "${PACKAGES[@]}"; do
-        echo -e "${YELLOW}Installing $package...${NC}"
-        if pip3 install "$package" 2>/dev/null || pip3 install "$package" --break-system-packages 2>/dev/null; then
-            echo -e "${GREEN}  $package installed successfully${NC}"
-        else
-            echo -e "${RED}  Failed to install $package${NC}"
-        fi
-    done
+    echo -e "${RED}Warning: Some packages failed to install${NC}"
+    echo -e "${YELLOW}You may need to install them manually${NC}"
 fi
-
-echo
-echo -e "${BLUE}========================================${NC}"
-echo -e "${BLUE}Setup Complete${NC}"
-echo -e "${BLUE}========================================${NC}"
-echo
-echo -e "${GREEN}Brain33 project is ready to use${NC}"
-echo -e "Project location: ${GREEN}$PROJECT_ROOT${NC}"
-echo
-echo -e "${CYAN}To run the project:${NC}"
-echo -e "  cd $REPO_NAME"
-echo -e "  python3 brain33_V5.py"
 echo
 
-# Return to original directory
-cd "$CURRENT_DIR"
-cd "$REPO_NAME"
-# run 
-python3 brain33_V5.py
+# Step 4: Download Words.txt
+echo -e "${BLUE}[Step 4/4] Downloading Words.txt file...${NC}"
+if bash "$DOWNLOAD_SCRIPT"; then
+    echo -e "${GREEN}Words.txt downloaded successfully${NC}"
+else
+    echo -e "${RED}Warning: Failed to download Words.txt${NC}"
+    echo -e "${YELLOW}You may need to download it manually${NC}"
+fi
+echo
+
+# Final summary
+echo -e "${CYAN}========================================${NC}"
+echo -e "${CYAN}     Setup Complete!                    ${NC}"
+echo -e "${CYAN}========================================${NC}"
+echo
+echo -e "${GREEN}Project root: $PROJECT_ROOT${NC}"
+echo -e "${GREEN}All setup tasks completed${NC}"
+echo
+echo -e "${YELLOW}Next steps:${NC}"
+echo "  1. Navigate to project root: cd $PROJECT_ROOT"
+echo "  2. Run the main script or application"
+echo
+echo -e "${BLUE}For more information, visit:${NC}"
+echo "  https://github.com/Pymmdrza/Brain33"
+echo
+
+exit 0
