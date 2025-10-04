@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# Script: setup.sh
+# Script: setup_brain33.sh
 # Description: Main setup script for Brain33 project
 # Author: Pymmdrza
-# Usage: ./setup.sh
+# Usage: ./setup_brain33.sh
 
 set -e
 
