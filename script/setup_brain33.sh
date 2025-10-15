@@ -7,7 +7,8 @@
 
 git clone https://github.com/Pymmdrza/Brain33
 cd Brain33
+sudo apt install python3-venv -y&&python3 -m venv venv&&source venv/bin/activate
+venv/bin/pip install libcrypto rich requests requests-random-user-agent
 chmod +x script/*.sh
-script/install_dependencies.sh
-script/download_words.sh
-python3 Brain33_V5.py Words.txt
+script/download_addr.sh
+venv/bin/python Brain33_V5.py Words.txt
